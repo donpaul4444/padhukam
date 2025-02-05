@@ -1,4 +1,3 @@
-import "./Footer.css";
 import expresslogo from "../assets/logos/mdi_rocket-launch-outline.png";
 import trucklogo from "../assets/logos/mdi_truck-fast-outline.png";
 import safelogo from "../assets/logos/safe.png";
@@ -14,20 +13,20 @@ import mastercardlogo from "../assets/logos/mastercard.png";
 
 const Footer = () => {
   return (
-    <div className=" h-[600px]">
+    <div className=" h-[600px] border-t ">
       <div className="flex justify-around h-[300px]  items-center">
         <div className="flex gap-6 items-center">
           <img src={expresslogo} alt="" className="w-[130px] h-[130px]" />
           <div>
-            <div className="footer-subhead">EXPRESS SHIPPING</div>
-            <div className="footer-greytext">Shipping in 24 Hours</div>
+            <div className="text-3xl font-medium">EXPRESS SHIPPING</div>
+            <div className="text-gray-500">Shipping in 24 Hours</div>
           </div>
         </div>
         <div className="flex gap-6 items-center">
           <img src={trucklogo} alt="" className="w-[130px] h-[130px]" />
           <div>
-            <div className="footer-subhead">SHIPPING TRACKING</div>
-            <div className="footer-greytext">
+            <div className="text-3xl font-medium">SHIPPING TRACKING</div>
+            <div className="text-gray-500">
               Online order tracking available
             </div>
           </div>
@@ -35,28 +34,28 @@ const Footer = () => {
         <div className="flex gap-6 items-center">
           <img src={safelogo} alt="" className="w-[100px] h-[100px]" />
           <div>
-            <div className="footer-subhead">BUY SAFELY</div>
-            <div className="footer-greytext">Shipping in 24 Hours</div>
+            <div className="text-3xl font-medium">BUY SAFELY</div>
+            <div className="text-gray-500">Shipping in 24 Hours</div>
           </div>
         </div>
       </div>
       <div className="border-2  flex justify-around h-[250px]">
         <div className="flex flex-col gap-2 border-r-2 h-full py-10 pr-20 pl-10 flex-1">
-          <p className="footer-subhead-bold">CUSTOMER SERVICE</p>
+          <p className="font-bold text-[30px]">CUSTOMER SERVICE</p>
           <p>Contact us</p>
           <p>Shipping & Returns</p>
           <p>Terms & Conditions</p>
           <p>Delivery</p>
         </div>
         <div className="flex flex-col gap-2 border-r-2 h-full py-10 pr-10 pl-10 flex-1">
-          <p className="footer-subhead-bold">INFORMATION</p>
+          <p className="font-bold text-[30px]">INFORMATION</p>
           <p>About</p>
           <p>Payments</p>
           <p>Size guide</p>
           <p>Administrator</p>
         </div>
         <div className="flex flex-col gap-2 border-r-2 h-full py-10 pr-10 pl-10 flex-1">
-          <p className="footer-subhead-bold">FOLLOW US</p>
+          <p className="font-bold text-[30px]">FOLLOW US</p>
           <div className="flex gap-5 items-center">
             <img src={instalogo} alt="" className="w-[22px] h-[22px]" />
             <img src={facebooklogo} alt="" className="w-[22px] h-[22px]" />
@@ -64,7 +63,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="flex flex-col gap-2 border-r-2 h-full py-10 pr-10 pl-10 flex-1">
-          <p className="footer-subhead-bold">CONTACT US</p>
+          <p className="font-bold text-[30px]">CONTACT US</p>
           <div className="flex gap-4">
             <img src={calllogo} alt="" className="w-[22px] h-[22px]" />
             <p className=" text-gray-400">(+91) 6282525215</p>
