@@ -10,6 +10,7 @@ import timelogo from "../assets/logos/nest-clock-farsight-analog-outline-rounded
 import gpaylogo from "../assets/logos/gpay.png";
 import visalogo from "../assets/logos/Visa_Logo 1 (1).png";
 import mastercardlogo from "../assets/logos/mastercard.png";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -52,7 +53,9 @@ const Footer = () => {
           <p>About</p>
           <p>Payments</p>
           <p>Size guide</p>
+          <NavLink to="/adminlogin">
           <p>Administrator</p>
+          </NavLink>
         </div>
         <div className="flex flex-col gap-2 border-r-2 h-full py-10 pr-10 pl-10 flex-1">
           <p className="font-bold text-[30px]">FOLLOW US</p>

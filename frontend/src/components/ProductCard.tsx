@@ -1,19 +1,24 @@
 import StarRating from "./StarRating";
-
 interface Product {
   image: string;
   name: string;
-  subhead: string;
+  brand: string;
   rating: number;
   price: number;
 }
 
-const ProductCard = ({ image, name, subhead, price, rating }: Product) => {
+const ProductCard = ({ image, name, brand, price, rating }: Product) => {
   return (
     <div className="w-[300px] h-[500px] border-2 flex flex-col items-center gap-2 shadow-lg">
-      <img src={image} alt="" className=" w-[90%]" />
-      <div className="font-semibold text-lg">{name}</div>
-      <div className="text-lg">{subhead}</div>
+      <div className="w-[280px] h-[270px] flex items-center justify-center  mt-3">
+        {image ? (
+          <img src={image} alt={name} className="w-full h-full object-contain" />
+        ) : (
+          <span className="text-gray-500">No Image Available</span>
+        )}
+      </div>
+      <div className="font-semibold text-lg truncate max-w-[250px]">{name}</div>
+      <div className="text-lg">{brand}</div>
       <StarRating rating={rating} />
       <div className="font-semibold text-lg">₹{price}</div>
       <button

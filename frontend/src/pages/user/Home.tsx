@@ -1,11 +1,25 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import banner from "../../assets/images/pexels-photo-298863.webp";
 import leftarrow from "../../assets/images/left arrow.png";
 import rightarrow from "../../assets/images/right arrow.png";
-import bestSeller from "../../temp";
 import Newsletter from "../../components/Newsletter";
 import ProductCard from "../../components/ProductCard";
+import { useEffect, useState } from "react";
+import { getProducts } from "../../services/adminService";
 
 const Home = () => {
+  const [products, setProducts] = useState([]);
+  useEffect(()=>{
+    const fetchProducts =async()=>{
+      try {
+        const data= await getProducts()
+        setProducts(data)
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    }
+    fetchProducts()
+  },[])
   return (
     <div className="  flex flex-col items-center justify-center">
       <img src={banner} alt="" className=" w-full h-[700px] object-cover" />
@@ -15,12 +29,12 @@ const Home = () => {
         <div className="flex  w-full justify-center items-center gap-2">
           <div className="flex w-[80%] mt-5 justify-between items-center">
             <img src={leftarrow} alt="" className="w-20 h-20" />
-            {bestSeller.slice(0,4).map((val) => (
+            {products.slice(-4).map((val:any) => (
               <div>
                 <ProductCard
-                  image={val.image}
+                  image={val.image[0]}
                   name={val.name}
-                  subhead={val.subhead}
+                  brand={val.brand}
                   rating={val.rating}
                   price={val.price}
                 />
@@ -34,14 +48,14 @@ const Home = () => {
         <div className="text-4xl font-bold mt-3">New Arrivals</div>
         <div className="border-b-2 border-black w-[80%] "></div>
         <div className="flex  w-full justify-center items-center gap-2">
-          <div className="flex flex-wrap w-[80%] border mt-5 gap-5 items-center">
+          <div className="flex  w-[80%] mt-5 gap-5 items-center justify-between">
             <img src={leftarrow} alt="" className="w-20 h-20" />
-            {bestSeller.slice(0,4).map((val) => (
+            {products.slice(-4).map((val:any) => (
               <div>
                 <ProductCard
-                  image={val.image}
+                  image={val.image[0]}
                   name={val.name}
-                  subhead={val.subhead}
+                  brand={val.brand}
                   rating={val.rating}
                   price={val.price}
                 />

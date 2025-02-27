@@ -1,6 +1,4 @@
 import "./App.css";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
 import Home from "./pages/user/Home";
 import { Routes, Route } from "react-router-dom";
 import Collection from "./pages/user/Collection";
@@ -20,16 +18,26 @@ import UserAddress from "./pages/user/UserAddress";
 import UserEditAddress from "./pages/user/UserEditAddress";
 import UserLayout from "./pages/Layouts/UserLayout";
 import AdminLayout from "./pages/Layouts/AdminLayout";
-import AdminDashboard from "./components/AdminDashboard";
-import AdminProductAdd from "./components/AdminProductAdd";
+import AdminLogin from "./pages/user/AdminLogin";
+import Products from "./pages/admin/Products";
+import UnderConstruction from "./pages/admin/UnderConstruction";
+import AddProduct from "./pages/admin/AddProduct";
+import {ToastContainer} from"react-toastify"
+import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoute from "./components/ProtectedRoute";
+
 
 function App() {
   return (
     <div className="px-2">
+      <ToastContainer position="top-right" autoClose={3000} />
       <Routes>
       <Route path="/" element={<UserLayout />}>
         <Route path="/" element={<Home />}></Route>
+        <Route element={<ProtectedRoute/>}>
+
         <Route path="/collection" element={<Collection />}></Route>
+        </Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/contact" element={<Contact />}></Route>
         <Route path="/product" element={<Product />}></Route>
@@ -39,6 +47,7 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
         <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
+        <Route path="/adminlogin" element={<AdminLogin/>}></Route>
         <Route path="/useraccount" element={<UserAccountLayout />}>
           <Route index element={<AccountOverview />}></Route>
           <Route path="myorders" element={<MyOrders/>}></Route>
@@ -47,8 +56,9 @@ function App() {
         </Route>
         </Route>
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboard />} />
-          <Route path="product/add" element={<AdminProductAdd />} />
+          <Route index element={<UnderConstruction/>} />
+          <Route path="products" element={<Products/>} />
+          <Route path="addproduct" element={<AddProduct/>} />
           {/* Add more admin routes as needed */}
         </Route>
       </Routes>
