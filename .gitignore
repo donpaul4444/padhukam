@@ -1,0 +1,8 @@
+# Ignore environment files
+frontend/.env
+backend/.env
+
+# Other common ignores
+node_modules/
+dist/
+.next/
