@@ -118,16 +118,6 @@ const signupUser = async (req, res) => {
   }
 };
 
-const sampleUser = async (req, res) => {
-  try {
-    const { email, pass } = req.body;
-    console.log(email, pass);
 
-    res.status(200).json({success:true,message:"good"})
-  } catch (error) {
-    console.log(error);
-    
-  }
-};
 
-export { loginUser, sendotp, verifyotp, signupUser,sampleUser };
+export { loginUser, sendotp, verifyotp, signupUser};

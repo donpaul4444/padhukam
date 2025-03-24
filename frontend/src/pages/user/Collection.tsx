@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Slider } from "antd";
 import ProductCard from "../../components/ProductCard";
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getProducts } from "../../services/adminService";
@@ -19,7 +18,8 @@ const Collection = () => {
   const [tempPriceRange, setTempPriceRange] = useState<[number, number]>([
     0, 10000,
   ]);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
   const [filters, setFilters] = useState({
     category: new Set<string>(),
     type: new Set<string>(),
@@ -42,55 +42,63 @@ const Collection = () => {
     const newFilteredProducts = allProducts.filter((product: any) => {
       return (
         product.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-        (selectedCategories.length === 0 ||
-          selectedCategories.includes(product.category)) &&
+        (selectedCategories.length === 0 || selectedCategories.includes(product.category)) &&
         (selectedTypes.length === 0 || selectedTypes.includes(product.type)) &&
-        (selectedBrands.length === 0 ||
-          selectedBrands.includes(product.brand)) &&
+        (selectedBrands.length === 0 || selectedBrands.includes(product.brand)) &&
         product.price >= priceRange[0] &&
         product.price <= priceRange[1]
       );
     });
-
+  
     // Extract updated filters from `newFilteredProducts`
-    const updatedCategories = new Set(
-      newFilteredProducts.map((item: any) => item.category)
-    );
-    const updatedTypes = new Set(
-      newFilteredProducts.map((item: any) => item.type)
-    );
-    const updatedBrands = new Set(
-      newFilteredProducts.map((item: any) => item.brand)
-    );
-
-    // ✅ Preserve previously selected filters if they still exist
-    setFilters({
-      category: updatedCategories,
-      type: updatedTypes,
-      brand: updatedBrands,
+    const updatedCategories = new Set(newFilteredProducts.map((item: any) => item.category));
+    const updatedTypes = new Set(newFilteredProducts.map((item: any) => item.type));
+    const updatedBrands = new Set(newFilteredProducts.map((item: any) => item.brand));
+  
+    // ✅ Update `filters` only if there's a change
+    setFilters((prevFilters) => {
+      if (
+        prevFilters.category.size !== updatedCategories.size ||
+        prevFilters.type.size !== updatedTypes.size ||
+        prevFilters.brand.size !== updatedBrands.size
+      ) {
+        return {
+          category: updatedCategories,
+          type: updatedTypes,
+          brand: updatedBrands,
+        };
+      }
+      return prevFilters;
     });
 
-    // ✅ Only reset selections if they are completely removed
-    setSelectedCategories(
-      (prev) =>
-        prev.filter((category) => updatedCategories.has(category)) || prev
-    );
-    setSelectedTypes(
-      (prev) => prev.filter((type) => updatedTypes.has(type)) || prev
-    );
-    setSelectedBrands(
-      (prev) => prev.filter((brand) => updatedBrands.has(brand)) || prev
-    );
+    setSelectedCategories((prev) => {
+      const updatedSelection = prev.filter((category) => updatedCategories.has(category));
+      return updatedSelection.length !== prev.length ? updatedSelection : prev;
+    });
+  
+    setSelectedTypes((prev) => {
+      const updatedSelection = prev.filter((type) => updatedTypes.has(type));
+      return updatedSelection.length !== prev.length ? updatedSelection : prev;
+    });
+  
+    setSelectedBrands((prev) => {
+      const updatedSelection = prev.filter((brand) => updatedBrands.has(brand));
+      return updatedSelection.length !== prev.length ? updatedSelection : prev;
+    });
+  
+    // ✅ Update filtered products only if needed
+    setFilteredProducts((prev) => (JSON.stringify(prev) !== JSON.stringify(newFilteredProducts) ? newFilteredProducts : prev));
+  
+  }, [searchTerm, selectedCategories, selectedTypes, selectedBrands, priceRange, allProducts]);
+  
 
-    setFilteredProducts(newFilteredProducts);
-  }, [
-    searchTerm,
-    selectedCategories,
-    selectedTypes,
-    selectedBrands,
-    priceRange,
-    allProducts,
-  ]);
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentProducts = filteredProducts.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   return (
     <div className="flex flex-col items-center">
@@ -111,7 +119,7 @@ const Collection = () => {
         </button>
       </div>
 
-      <div className="w-full flex pl-48">
+      <div className="w-full flex pl-48  min-h-[1700px] gap-5">
         <div className="w-[300px] h-full pl-6 flex flex-col gap-2">
           <div className="text-[30px] font-semibold mb-2">FILTERS</div>
           <div className=" mb-2 border-[1px] border-grey w-[250px] p-3 flex flex-col gap-2">
@@ -196,14 +204,13 @@ const Collection = () => {
 
             {/* Apply button */}
             <div className="flex justify-end">
-
-            <button
-              className="mt-2 w-[50px] bg-black text-white text-sm font-semibold py-1 rounded "
-              onClick={() => setPriceRange(tempPriceRange)} // ✅ Only updates `priceRange` when clicked
+              <button
+                className="mt-2 w-[50px] bg-black text-white text-sm font-semibold py-1 rounded "
+                onClick={() => setPriceRange(tempPriceRange)} //
               >
-              Apply
-            </button>
-              </div>
+                Apply
+              </button>
+            </div>
           </div>
 
           <button
@@ -221,11 +228,12 @@ const Collection = () => {
             Reset
           </button>
         </div>
-        <div className="flex flex-col  w-[1400px] h-full">
-          <div className="flex-1 flex flex-wrap  gap-10  ">
-            {filteredProducts.map((val: any) => (
-              <div>
-                <NavLink to="/product">
+
+        <div className="flex flex-wrap gap-10">
+          {currentProducts.length > 0 ? (
+            currentProducts.map((val: any) => (
+              <div key={val.id}>
+                <NavLink to={`/product/${val._id}`}>
                   <ProductCard
                     image={val.image[0]}
                     name={val.name}
@@ -235,22 +243,27 @@ const Collection = () => {
                   />
                 </NavLink>
               </div>
-            ))}
-          </div>
-          <div className="h-14 flex justify-center mt-10">
-            <button style={{ backgroundColor: "#A56826" }} className="w-14">
-              <LeftOutlined style={{ color: "white" }} />
-            </button>
-            <button className=" w-14 border  bg-gray-200">1</button>
-            <button className=" w-14 border">2</button>
-            <button className=" w-14 border">3</button>
-            <button className=" w-14 border">4</button>
-            <button className=" w-14 border">5</button>
-            <button style={{ backgroundColor: "#A56826" }} className="w-14">
-              <RightOutlined style={{ color: "white" }} />
-            </button>
-          </div>
+            ))
+          ) : (
+            <p className="text-gray-500 text-center w-full">
+              No products found.
+            </p>
+          )}
         </div>
+      </div>
+      {/* Pagination - Always at the Bottom */}
+      <div className="h-14 flex justify-center mt-auto gap-2 pl-[400px]">
+        {[...Array(totalPages)].map((_, index) => (
+          <button
+            key={index}
+            className={`w-10 h-10 border rounded ${
+              currentPage === index + 1 ? "bg-gray-200 font-bold" : ""
+            }`}
+            onClick={() => setCurrentPage(index + 1)}
+          >
+            {index + 1}
+          </button>
+        ))}
       </div>
     </div>
   );

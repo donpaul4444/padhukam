@@ -1,29 +1,55 @@
 import { create } from "zustand";
+import {jwtDecode} from "jwt-decode"
 
 interface AuthState {
   token: string | null;
-  user: unknown; // Replace 'any' with a proper user type if available
+  user: unknown;
   isLoggedIn: boolean;
-  login: (token: string, user: unknown) => void; // Replace 'any' with a proper user type
+  login: (token: string, user: unknown) => void;
   logout: () => void;
 }
 
-const useAuthStore = create<AuthState>((set) => ({
-  token: localStorage.getItem("token") || null,
-  user: JSON.parse(localStorage.getItem("user") || "null"),
-  isLoggedIn: !!localStorage.getItem("token"),
+const getToken = () => {
+  const token = localStorage.getItem("token");
+  if (!token) return null;
 
-  login: (token, user) => {
-    localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(user));
-    set({ token, user, isLoggedIn: true });
-  },
+  try {
+    const decoded: { exp: number } = jwtDecode(token);
+    if (decoded.exp * 1000 < Date.now()) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      return null;
+    }
+    return token;
+  } catch (error) {
+    console.error("Error decoding token:", error);
+    return null;
+  }
+};
 
-  logout: () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    set({ token: null, user: null, isLoggedIn: false });
-  },
-}));
+const useAuthStore = create<AuthState>((set) => {
+  const token = getToken();
+  const user = token
+    ? JSON.parse(localStorage.getItem("user") || "null")
+    : null;
+
+  return {
+    token,
+    user,
+    isLoggedIn: !!token,
+
+    login: (token, user) => {
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      set({ token, user, isLoggedIn: true });
+    },
+
+    logout: () => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      set({ token: null, user: null, isLoggedIn: false });
+    },
+  };
+});
 
 export default useAuthStore;

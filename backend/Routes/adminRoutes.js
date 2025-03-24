@@ -1,5 +1,6 @@
 import express from "express"
-import { addProduct, getProducts } from "../Controllers/productController.js"
+import { getProducts } from "../Controllers/productController.js"
+import { addProduct } from "../Controllers/adminController.js"
 import upload from "../middleware/multerConfig.js"
 
 const adminRouter = express.Router()

@@ -9,13 +9,12 @@ const authmiddleware = (req, res, next) => {
       .json({ success: false, message: "Access denied.No token provided" });
   }
   try {
-    const decoded = jwt.verify(
-      token.replace("Bearer", ""),
-      process.env.JWT_SECRET
-    );
-    req.user = decodednext();
+    const decoded = jwt.verify(token.replace("Bearer ", "").trim(), process.env.JWT_SECRET);
+
+    req.user = decoded
+    next();
   } catch (error) {
-    res.status(401).json({ success: false, message: "Invalid token" });
+    res.status(401).json({ success: false, message: "Invalid token", error: error.message });
   }
 };
 

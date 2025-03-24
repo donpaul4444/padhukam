@@ -2,10 +2,12 @@ import { COMPANY_NAME } from "../constants";
 import { UserOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
 import useAuthStore from "../store/authstore.tsx";
+import useCartStore from "../store/cartStore.tsx";
 
 
 const Header = () => {
   const { isLoggedIn, logout } = useAuthStore();
+  const{storeCart}=useCartStore()
   const handleLogout = () => {
     logout()
   };
@@ -63,9 +65,12 @@ const Header = () => {
               <div className="flex items-center gap-2">
                 <div className="relative">
                   <ShoppingCartOutlined className="text-3xl" />
-                  <div className="bg-red-600 w-4 h-4 rounded-full absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 text-white flex justify-center items-center text-sm">
-                    1
+                  {storeCart.length>0 && (
+
+                    <div className="bg-red-600 w-4 h-4 rounded-full absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2 text-white flex justify-center items-center text-sm">
+                    {storeCart.length}
                   </div>
+                  )}
                 </div>
                 <div className="text-xl">MY CART</div>
               </div>

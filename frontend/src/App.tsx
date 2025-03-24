@@ -25,6 +25,7 @@ import AddProduct from "./pages/admin/AddProduct";
 import {ToastContainer} from"react-toastify"
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./components/ProtectedRoute";
+import UserAddAddress from "./pages/user/userAddAddress";
 
 
 function App() {
@@ -40,7 +41,7 @@ function App() {
         </Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/contact" element={<Contact />}></Route>
-        <Route path="/product" element={<Product />}></Route>
+        <Route path="/product/:id" element={<Product />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
         <Route path="/checkout" element={<CheckOut />}></Route>
         <Route path="/order-complete" element={<OrderComplete />}></Route>
@@ -53,6 +54,7 @@ function App() {
           <Route path="myorders" element={<MyOrders/>}></Route>
           <Route path="address" element={<UserAddress/>}></Route>
           <Route path="editaddress" element={<UserEditAddress/>}></Route>
+          <Route path="addaddress" element={<UserAddAddress/>}></Route>
         </Route>
         </Route>
         <Route path="/admin" element={<AdminLayout />}>
