@@ -8,7 +8,7 @@ interface RazorpayHandlerProps {
 
 const RazorpayHandler = forwardRef(({ orderData, onSuccess }: RazorpayHandlerProps, ref) => {
   const [razorpayLoaded, setRazorpayLoaded] = useState(false);
-
+  const API_URI = import.meta.env.VITE_API_URL
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://checkout.razorpay.com/v1/checkout.js";
@@ -29,7 +29,7 @@ const RazorpayHandler = forwardRef(({ orderData, onSuccess }: RazorpayHandlerPro
 
     try {
       // 1️⃣ Send request to backend to create Razorpay order
-      const response = await axios.post(`http://localhost:5000/api/user/createorder`, {
+      const response = await axios.post(`${API_URI}/api/user/createorder`, {
         amount: orderData.totalPrice,
         currency: "INR",
         receipt: `receipt_${Date.now()}`,
@@ -60,7 +60,7 @@ const RazorpayHandler = forwardRef(({ orderData, onSuccess }: RazorpayHandlerPro
             razorpaySignature: paymentResponse.razorpay_signature 
           };
 
-          const verifyResponse = await axios.post(`http://localhost:5000/api/user/placeorder`, finalOrderData, {
+          const verifyResponse = await axios.post(`${API_URI}/api/user/placeorder`, finalOrderData, {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
           });
 
