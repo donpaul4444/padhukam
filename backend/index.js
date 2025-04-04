@@ -6,6 +6,7 @@ import connectDB from "./config/mongodb.js";
 import userRouter from "./Routes/userRoutes.js";
 import adminRouter from "./Routes/adminRoutes.js";
 import connectCloudinary from "./config/cloudinary.js";
+console.log("🚀 Starting backend app...");
 
 dotenv.config();
 
