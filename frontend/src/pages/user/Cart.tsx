@@ -1,7 +1,7 @@
 import CartItem from "../../components/CartItem";
 import Downarrow from "../../assets/images/Down-arrow.png";
 import Delete from "../../assets/icons/Delete.png";
-import Add from "../../assets/icons/Add.png";
+// import Add from "../../assets/icons/Add.png";
 import gpaylogo from "../../assets/logos/gpay.png";
 import visalogo from "../../assets/logos/Visa_Logo 1 (1).png";
 import mastercardlogo from "../../assets/logos/mastercard.png";

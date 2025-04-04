@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import addaddressicon from "../../assets/icons/material-symbols_add-circle.png";
 import { NavLink } from "react-router-dom";
 import { deleteAddress, getAddresses, setDefaultAddress } from "../../services/userService";

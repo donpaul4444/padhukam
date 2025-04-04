@@ -9,6 +9,7 @@ interface CartItems
   brand?:string;
   size?:number;
   price?:number;
+  colour?:string
 }
 const CartItem = ({image,name,rating,category,brand,size,price}:CartItems) => {
   return (

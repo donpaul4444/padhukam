@@ -25,7 +25,7 @@ import AddProduct from "./pages/admin/AddProduct";
 import {ToastContainer} from"react-toastify"
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./components/ProtectedRoute";
-import UserAddAddress from "./pages/user/userAddAddress";
+import UserAddAddress from "./pages/user/UserAddAddress";
 
 
 function App() {

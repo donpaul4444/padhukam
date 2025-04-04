@@ -1,7 +1,7 @@
 import AdminHeader from "../../components/AdminHeader";
 
-import myorders from "../../assets/logos/my-orders.png";
-import address from "../../assets/logos/manage-address.png";
+// import myorders from "../../assets/logos/my-orders.png";
+// import address from "../../assets/logos/manage-address.png";
 import { useState } from "react";
 import { useNavigate, Outlet,} from "react-router-dom";
 import dashboardicon from "../../assets/icons/Dashboard.png"

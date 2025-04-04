@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import banner from "../../assets/images/pexels-photo-298863.webp";
-import leftarrow from "../../assets/images/left arrow.png";
-import rightarrow from "../../assets/images/right arrow.png";
+// import leftarrow from "../../assets/images/left arrow.png";
+// import rightarrow from "../../assets/images/right arrow.png";
 import Newsletter from "../../components/Newsletter";
-import ProductCard from "../../components/ProductCard";
+// import ProductCard from "../../components/ProductCard";
 import { useEffect, useState } from "react";
 import { getProducts } from "../../services/adminService";
 import ProductCarousel from "../../components/ProductCarousel";

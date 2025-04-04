@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import gpaylogo from "../../assets/logos/gpay.png";
-import visalogo from "../../assets/logos/Visa_Logo 1 (1).png";
-import mastercardlogo from "../../assets/logos/mastercard.png";
-import Downarrow from "../../assets/images/Down-arrow.png";
+// import gpaylogo from "../../assets/logos/gpay.png";
+// import visalogo from "../../assets/logos/Visa_Logo 1 (1).png";
+// import mastercardlogo from "../../assets/logos/mastercard.png";
+// import Downarrow from "../../assets/images/Down-arrow.png";
 import { useNavigate } from "react-router-dom";
 import useCartStore from "../../store/cartStore";
 import { useEffect, useRef, useState } from "react";
 import { getAddresses, placeOrder } from "../../services/userService";
 import { toast } from "react-toastify";
-import RazorpayButton from "../../components/RazorpayHandler";
+// import RazorpayButton from "../../components/RazorpayHandler";
 import RazorpayHandler from "../../components/RazorpayHandler";
 
 interface cartItem {
