@@ -1,7 +1,9 @@
 import { useRef, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
+import { NavLink } from "react-router-dom";
 
 interface Product {
+  _id: string;
   image: string[];
   name: string;
   brand: string;
@@ -62,13 +64,15 @@ const ProductCarousel = ({ title, products }: ProductCarouselProps) => {
       >
         {products.map((product, index) => (
           <div key={index} className="shrink-0 w-[300px] snap-start">
+            <NavLink to={`/product/${product._id}`} >
             <ProductCard
               image={product.image[0]}
               name={product.name}
               brand={product.brand}
               rating={product.rating}
               price={product.price}
-            />
+              />
+              </NavLink>
           </div>
         ))}
       </div>

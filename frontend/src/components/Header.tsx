@@ -77,24 +77,27 @@ const Header = () => {
             </NavLink>
             <div className="flex justify-end  items-center gap-2">
               {!isLoggedIn ? (
+                <>
                 <NavLink to="/login">
                   <button className="border-r px-2  border-black text-xl">
                     LOGIN
                   </button>
                 </NavLink>
+                       <NavLink to="/signup">
+                <button className="text-xl">SIGN UP</button>
+              </NavLink>
+                </>
               ) : (
                 <NavLink to="/login">
                   <button
-                    className="border-r px-2  border-black text-xl"
+                    className="px-2 text-xl"
                     onClick={handleLogout}
                   >
                     LOGOUT
                   </button>
                 </NavLink>
               )}
-              <NavLink to="/signup">
-                <button className="text-xl">SIGN UP</button>
-              </NavLink>
+       
             </div>
           </div>
         </div>

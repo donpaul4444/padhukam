@@ -4,6 +4,7 @@ import Calender from "../../assets/icons/material-symbols_calendar-month-outline
 import Shipping from "../../assets/icons/ph_truck-light.png";
 import Return from "../../assets/icons/return.png";
 import Copy from "../../assets/icons/ic_baseline-content-copy.png";
+import { toast } from "react-toastify";
 
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -43,17 +44,24 @@ const Product = () => {
   }, [product]);
 
   const handleAddToCart = async () => {
-    try {
-      const response = await addToCart({ productId: product._id, quantity });
-      if (response && response.data.success) {
-        navigate("/cart");
-      } else {
-        console.error("Failed to add item to cart.");
-      }
-    } catch (error) {
-      console.error("Error adding to cart:", error);
+      const token = localStorage.getItem("token");
+  if (!token) {
+    toast.warning("Please login to add items to your cart");
+    return;
+  }
+
+  try {
+    const response = await addToCart({ productId: product._id, quantity });
+    if (response && response.data.success) {
+      toast.success("✅ Item added to cart");
+    } else {
+      toast.error("❌ Failed to add item to cart");
     }
-  };
+  } catch (error) {
+    console.error("Error adding to cart:", error);
+    toast.error("⚠️ Something went wrong");
+  }
+};
 
   return (
     <div>

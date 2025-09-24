@@ -43,9 +43,11 @@ const Login = () => {
           <p className="text-white text-4xl">Don't have an </p>
           <p className="text-white text-4xl">Account Yet?</p>
           <p className="text-white  mb-8 text-xl mt-4">Sign up to Continue</p>
+           <NavLink to="/signup">
           <button className="bg-white px-16 py-2 rounded-lg">
             CREATE AN ACCOUNT
           </button>
+           </NavLink>
         </div>
       </div>
       <div className="w-[300px] ">

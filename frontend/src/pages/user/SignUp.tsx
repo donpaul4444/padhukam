@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import banner from "../../assets/images/pexels-photo-298863.webp";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { sendOtp, signUpUser, verifyOtp } from "../../services/userService";
@@ -97,7 +97,9 @@ const SignUp = () => {
           <p className="text-white text-4xl">Already have </p>
           <p className="text-white text-4xl">an Account?</p>
           <p className="text-white  mb-8 text-xl mt-4">Sign in to Continue</p>
+           <NavLink to="/login">
           <button className="bg-white px-16 py-1  rounded-lg">LOG IN</button>
+           </NavLink>
         </div>
       </div>
       <div className="w-[500px] ">

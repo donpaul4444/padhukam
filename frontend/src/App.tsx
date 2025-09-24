@@ -36,19 +36,7 @@ function App() {
       <Route path="/" element={<UserLayout />}>
         <Route path="/" element={<Home />}></Route>
         <Route element={<ProtectedRoute/>}>
-
-        <Route path="/collection" element={<Collection />}></Route>
-        </Route>
-        <Route path="/about" element={<About />}></Route>
-        <Route path="/contact" element={<Contact />}></Route>
-        <Route path="/product/:id" element={<Product />}></Route>
         <Route path="/cart" element={<Cart />}></Route>
-        <Route path="/checkout" element={<CheckOut />}></Route>
-        <Route path="/order-complete" element={<OrderComplete />}></Route>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/signup" element={<SignUp />}></Route>
-        <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
-        <Route path="/adminlogin" element={<AdminLogin/>}></Route>
         <Route path="/useraccount" element={<UserAccountLayout />}>
           <Route index element={<AccountOverview />}></Route>
           <Route path="myorders" element={<MyOrders/>}></Route>
@@ -56,6 +44,18 @@ function App() {
           <Route path="editaddress" element={<UserEditAddress/>}></Route>
           <Route path="addaddress" element={<UserAddAddress/>}></Route>
         </Route>
+
+        </Route>
+        <Route path="/collection" element={<Collection />}></Route>
+        <Route path="/about" element={<About />}></Route>
+        <Route path="/contact" element={<Contact />}></Route>
+        <Route path="/product/:id" element={<Product />}></Route>
+        <Route path="/checkout" element={<CheckOut />}></Route>
+        <Route path="/order-complete" element={<OrderComplete />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/signup" element={<SignUp />}></Route>
+        <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
+        <Route path="/adminlogin" element={<AdminLogin/>}></Route>
         </Route>
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<UnderConstruction/>} />
