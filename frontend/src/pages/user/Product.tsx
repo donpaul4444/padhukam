@@ -6,7 +6,7 @@ import Return from "../../assets/icons/return.png";
 import Copy from "../../assets/icons/ic_baseline-content-copy.png";
 import { toast } from "react-toastify";
 
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { addToCart, getProductdetails } from "../../services/userService";
 import ProductCarousel from "../../components/ProductCarousel";
@@ -22,7 +22,7 @@ const Product = () => {
   const [allProducts, setAllProducts] = useState<any[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   
-  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
